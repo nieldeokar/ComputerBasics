@@ -46,8 +46,20 @@ The last byte that can be addressed on Linux is location 0xbfffffff. Linux start
 - Virtual address vs Physical address  
 - Memory swapping - Disk to RAM n vice versa  
 - Pages : x86 Processors size is 4096 Bytes  
-- Swap death : So many programs loaded cause of which hardly any space left on Physical memory.  Cause of which more of time spent on swapping than execution.
+- Swap death : So many programs loaded cause of which hardly any space left on Physical memory. Cause of which more of time spent on swapping than execution.
 - Resident Set Size RSS : The amount of memory that your program currently has in physical memory is called it’s resident set size.  
+- Memory manager :  
+Every program is given with the last memory address that they can access, we can get last address by using `%eax`. If we call `brk` with `0` in `%eax` Linux returns the last address that we can use.  
+  - Suppose we need larger memory for loading file 1 we request same using `brk` and Linux granted us new break point.  
+  - Then we load file 2 and get rid of file 1.  
+  - Now we are left with huge memory gap in between. If this continues we will run out of memory soon.  
+  - To manage these situations we need `Memory manager`.  
+
+A memory manager is a set of routines that takes care of the dirty work of getting your program memory for you.  
+- `allocate` and `deallocate`.  
+- `dynamic memory allocation`.  
+- Minimizes the number of `holes` in memory.   
+- The pool of memory used by memory managers is commonly referred to as the `heap`.
 
 
 
